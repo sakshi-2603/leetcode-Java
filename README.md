@@ -38,3 +38,54 @@ public class Main {
         System.out.println(sol.mergeAlternately("abcd", "pq"));   // apbqcd
     }
 }
+
+
+📝 LeetCode 1071 - Greatest Common Divisor of Strings
+Problem
+For two strings `s` and `t`, we say "`t` divides `s`" if and only if `s = t + t + ... + t` (t concatenated one or more times).  
+Given two strings `str1` and `str2`, return the largest string `x` such that `x` divides both `str1` and `str2`.
+
+Example
+Input: str1 = "ABCABC", str2 = "ABC"
+Output: "ABC"
+
+Input: str1 = "ABABAB", str2 = "ABAB"
+Output: "AB"
+
+Input: str1 = "LEET", str2 = "CODE"
+Output: ""
+arduino
+Copy code
+
+Solution (Java)
+java
+class Solution {
+    public String gcdOfStrings(String str1, String str2) {
+        // If concatenation order mismatch, no common divisor
+        if (!(str1 + str2).equals(str2 + str1)) {
+            return "";
+        }
+        int gcdLen = gcd(str1.length(), str2.length());
+        return str1.substring(0, gcdLen);
+    }
+
+    private int gcd(int a, int b) {
+        return b == 0 ? a : gcd(b, a % b);
+    }
+}
+Complexity
+Time: O(n + m) (concat check + gcd calculation)
+
+Space: O(1)
+
+Example Run
+java
+Copy code
+public class Main {
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        System.out.println(sol.gcdOfStrings("ABCABC", "ABC"));   // "ABC"
+        System.out.println(sol.gcdOfStrings("ABABAB", "ABAB")); // "AB"
+        System.out.println(sol.gcdOfStrings("LEET", "CODE"));   // ""
+    }
+}
