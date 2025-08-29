@@ -89,3 +89,64 @@ public class Main {
         System.out.println(sol.gcdOfStrings("LEET", "CODE"));   // ""
     }
 }
+
+
+LeetCode 1431 - Kids With the Greatest Number of Candies
+Problem
+There are `n` kids with candies.  
+You are given an integer array `candies`, where `candies[i]` is the number of candies the `i-th` kid has, and an integer `extraCandies`.  
+
+Return a boolean list `result` of length `n`, where `result[i]` is:
+- `true` if, after giving the `i-th` kid all the `extraCandies`, they will have the **greatest number of candies** among all the kids.
+- `false` otherwise.  
+Example
+Input: candies = [2,3,5,1,3], extraCandies = 3
+Output: [true,true,true,false,true]
+
+Input: candies = [4,2,1,1,2], extraCandies = 1
+Output: [true,false,false,false,false]
+
+Input: candies = [12,1,12], extraCandies = 10
+Output: [true,false,true]
+
+Solution :
+import java.util.*;
+
+class Solution {
+    public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
+        int max = 0;
+        // Step 1: Find maximum candies among all kids
+        for (int c : candies) {
+            max = Math.max(max, c);
+        }
+
+        // Step 2: Check each kid after adding extraCandies
+        List<Boolean> result = new ArrayList<>();
+        for (int c : candies) {
+            result.add(c + extraCandies >= max);
+        }
+        return result;
+    }
+}
+Complexity
+Time: O(n) (scan for max + build result)
+Space: O(n) (result list)
+
+Example Run
+public class Main {
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        int[] candies1 = {2,3,5,1,3};
+        System.out.println(sol.kidsWithCandies(candies1, 3));
+        // [true, true, true, false, true]
+
+        int[] candies2 = {4,2,1,1,2};
+        System.out.println(sol.kidsWithCandies(candies2, 1));
+        // [true, false, false, false, false]
+
+        int[] candies3 = {12,1,12};
+        System.out.println(sol.kidsWithCandies(candies3, 10));
+        // [true, false, true]
+    }
+}
