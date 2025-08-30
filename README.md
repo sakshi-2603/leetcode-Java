@@ -150,3 +150,65 @@ public class Main {
         // [true, false, true]
     }
 }
+
+
+LeetCode 605 - Can Place Flowers
+Problem
+You are given a long flowerbed (array) containing 0’s and 1’s, where:
+- `0` → empty plot  
+- `1` → already planted  
+You want to plant `n` new flowers, but no two flowers can be adjacent**.  
+Return `true` if you can plant all `n` flowers without violating the rule, otherwise `false`.
+Example
+Input: flowerbed = [1,0,0,0,1], n = 1
+Output: true
+Input: flowerbed = [1,0,0,0,1], n = 2
+Output: false
+
+Solution (Java)
+class Solution {
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+        int len = flowerbed.length;
+        
+        for (int i = 0; i < len && n > 0; i++) {
+            if (flowerbed[i] == 0) {
+                boolean emptyLeft  = (i == 0) || (flowerbed[i - 1] == 0);
+                boolean emptyRight = (i == len - 1) || (flowerbed[i + 1] == 0);
+                
+                if (emptyLeft && emptyRight) {
+                    flowerbed[i] = 1; // plant flower
+                    n--;
+                }
+            }
+        }
+        
+        return n == 0;
+    }
+}
+
+Explanation
+Loop through each plot.
+If it’s empty (0) and both neighbors are empty (or edges), plant a flower (1).
+Decrease n each time you plant.
+If n reaches 0, return true.
+
+Complexity
+Time: O(n) (single scan through array)
+Space: O(1) (in-place updates)
+
+🔍 Example Run
+public class Main {
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        int[] f1 = {1,0,0,0,1};
+        System.out.println(sol.canPlaceFlowers(f1, 1)); // true
+
+        int[] f2 = {1,0,0,0,1};
+        System.out.println(sol.canPlaceFlowers(f2, 2)); // false
+
+        int[] f3 = {0,0,1,0,0};
+        System.out.println(sol.canPlaceFlowers(f3, 2)); // true
+    }
+}
+
