@@ -212,3 +212,71 @@ public class Main {
     }
 }
 
+
+LeetCode 345 - Reverse Vowels of a String
+Problem
+Given a string `s`, reverse only all the vowels in the string and return it.  
+The vowels are: `a, e, i, o, u` (both lowercase and uppercase).
+
+Example
+Input: s = "IceCreAm"
+Output: "AceCreIm"
+Input: s = "leetcode"
+Output: "leotcede"
+
+Solution (Java)
+import java.util.*;
+
+class Solution {
+    public String reverseVowels(String s) {
+        Set<Character> vowels = new HashSet<>(
+            Arrays.asList('a','e','i','o','u','A','E','I','O','U')
+        );
+        
+        char[] arr = s.toCharArray();
+        int left = 0, right = arr.length - 1;
+
+        while (left < right) {
+            while (left < right && !vowels.contains(arr[left])) {
+                left++;
+            }
+            while (left < right && !vowels.contains(arr[right])) {
+                right--;
+            }
+            if (left < right) {
+                char temp = arr[left];
+                arr[left] = arr[right];
+                arr[right] = temp;
+                left++;
+                right--;
+            }
+        }
+        
+        return new String(arr);
+    }
+}
+Explanation
+Use two pointers (left and right) starting from both ends.
+Skip non-vowel characters.
+Swap vowels when both pointers point to vowels.
+Continue until left >= right.
+
+Complexity
+Time: O(n) → single pass over the string
+Space: O(n) → char array storage (in-place swap, but new string returned)
+
+🔍 Example Run
+public class Main {
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        String s1 = "IceCreAm";
+        System.out.println(sol.reverseVowels(s1)); // "AceCreIm"
+
+        String s2 = "leetcode";
+        System.out.println(sol.reverseVowels(s2)); // "leotcede"
+
+        String s3 = "aA";
+        System.out.println(sol.reverseVowels(s3)); // "Aa"
+    }
+}
