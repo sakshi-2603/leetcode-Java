@@ -340,3 +340,67 @@ public class Main {
     }
 }
 
+
+LeetCode 238 - Product of Array Except Self
+Problem
+Given an integer array `nums`, return an array `answer` such that:
+answer[i] = product of all nums[j] where j != i
+Solve in O(n) time.
+Do not use division.
+  
+Example
+Input: nums = [1,2,3,4]
+Output: [24,12,8,6]
+Input: nums = [-1,1,0,-3,3]
+Output: [0,0,9,0,0]
+
+Solution (Java)
+import java.util.*;
+
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+        int[] result = new int[n];
+
+        // Step 1: prefix products
+        result[0] = 1;
+        for (int i = 1; i < n; i++) {
+            result[i] = result[i - 1] * nums[i - 1];
+        }
+
+        // Step 2: suffix products (multiply from right side)
+        int suffix = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            result[i] *= suffix;
+            suffix *= nums[i];
+        }
+
+        return result;
+    }
+}
+
+Explanation
+Prefix Pass → store product of all elements to the left of i.
+Example: for [1,2,3,4], prefix array = [1,1,2,6].
+Suffix Pass → multiply from right side while updating result.
+Multiply prefix[i] * suffix (right side product).
+No division, only two passes.
+
+Complexity
+Time: O(n) (two linear passes)
+Space: O(1) extra (ignoring output array)
+
+Example Run
+public class Main {
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        int[] nums1 = {1,2,3,4};
+        System.out.println(Arrays.toString(sol.productExceptSelf(nums1))); 
+        // [24, 12, 8, 6]
+
+        int[] nums2 = {-1,1,0,-3,3};
+        System.out.println(Arrays.toString(sol.productExceptSelf(nums2))); 
+        // [0, 0, 9, 0, 0]
+    }
+}
