@@ -280,3 +280,63 @@ public class Main {
         System.out.println(sol.reverseVowels(s3)); // "Aa"
     }
 }
+
+
+LeetCode 151 - Reverse Words in a String
+Problem
+Given a string `s`, reverse the order of words.  
+- Words are separated by spaces.  
+- Reduce multiple spaces between words to a single space  
+- Remove leading and trailing spaces.
+  
+Example
+Input: s = "the sky is blue"
+Output: "blue is sky the"
+Input: s = " hello world "
+Output: "world hello"
+Input: s = "a good example"
+Output: "example good a"
+
+Solution (Java)
+class Solution {
+    public String reverseWords(String s) {
+        // Trim and split by spaces (ignoring multiple spaces)
+        String[] words = s.trim().split("\\s+");
+        
+        // Reverse using StringBuilder
+        StringBuilder sb = new StringBuilder();
+        for (int i = words.length - 1; i >= 0; i--) {
+            sb.append(words[i]);
+            if (i > 0) sb.append(" ");
+        }
+        
+        return sb.toString();
+    }
+}
+
+Explanation
+Trim spaces to remove leading and trailing spaces.
+Split with regex \\s+ → handles multiple spaces between words.
+Reverse order of words with a loop.
+Join them using a single space.
+
+Complexity
+Time: O(n) → single pass to split + reverse + build string
+Space: O(n) → array of words (can be optimized to O(1) if done in-place with char array)
+
+🔍 Example Run
+public class Main {
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        String s1 = "the sky is blue";
+        System.out.println(sol.reverseWords(s1)); // "blue is sky the"
+
+        String s2 = "  hello world  ";
+        System.out.println(sol.reverseWords(s2)); // "world hello"
+
+        String s3 = "a good   example";
+        System.out.println(sol.reverseWords(s3)); // "example good a"
+    }
+}
+
