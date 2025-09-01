@@ -404,3 +404,38 @@ public class Main {
         // [0, 0, 9, 0, 0]
     }
 }
+
+
+443. String Compression
+Problem Statement
+Given an array of characters `chars`, compress it in-place using the following rules:
+- For groups of consecutive repeating characters:
+  - If length = 1 → write only the character.
+  - If length > 1 → write character + count (count may span multiple digits).
+- Return the new length of the array.
+
+The algorithm must use only constant extra space.
+Examples
+Example 1
+Input: ["a","a","b","b","c","c","c"]
+Output: Length = 6, Array = ["a","2","b","2","c","3"]
+Example 2
+Input: ["a"]
+Output: Length = 1, Array = ["a"]
+Example 3 : 
+Input: ["a","b","b","b","b","b","b","b","b","b","b","b","b"]
+Output: Length = 4, Array = ["a","b","1","2"]
+
+Constraints
+- `1 <= chars.length <= 2000`
+- `chars[i]` is a lowercase/uppercase letter, digit, or symbol.
+Solution Approach
+1. Use two pointers:
+   - `i` → scans input
+   - `index` → writes compressed output
+2. Count each consecutive group of characters.
+3. Write character + count (if >1).
+4. Return the final `index` as new length.
+
+⏱️ Time Complexity: O(n)  
+📦 Space Complexity: O(1) (in-place)
