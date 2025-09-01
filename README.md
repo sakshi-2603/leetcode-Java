@@ -439,3 +439,76 @@ Solution Approach
 
 ⏱️ Time Complexity: O(n)  
 📦 Space Complexity: O(1) (in-place)
+
+
+LeetCode 334 - Increasing Triplet Subsequence
+
+Problem
+Given an integer array `nums`, return `true` if there exists a triple of indices `(i, j, k)` such that:
+i < j < k AND nums[i] < nums[j] < nums[k]
+Otherwise, return `false`.
+Example
+Input: nums = [1,2,3,4,5]
+Output: true
+Explanation: Any triplet where i < j < k is valid.
+
+Input: nums = [5,4,3,2,1]
+Output: false
+Explanation: No triplet exists.
+
+Input: nums = [2,1,5,0,4,6]
+Output: true
+Explanation: Triplet: (0,4,6)
+
+Solution (Java)
+class Solution {
+    public boolean increasingTriplet(int[] nums) {
+        int first = Integer.MAX_VALUE;
+        int second = Integer.MAX_VALUE;
+
+        for (int n : nums) {
+            if (n <= first) {
+                // update smallest so far
+                first = n;
+            } else if (n <= second) {
+                // update second smallest
+                second = n;
+            } else {
+                // found third > second > first
+                return true;
+            }
+        }
+        return false;
+    }
+}
+Explanation
+Keep track of two smallest numbers seen so far:
+first → smallest element.
+second → smallest element greater than first.
+If we find a third number n > second, then an increasing triplet exists.
+Otherwise, continue scanning.
+
+Complexity
+Time: O(n) → single pass.
+Space: O(1) → only two variables.
+
+Example Run
+java
+Copy code
+public class Main {
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        int[] nums1 = {1,2,3,4,5};
+        System.out.println(sol.increasingTriplet(nums1)); 
+        // true
+
+        int[] nums2 = {5,4,3,2,1};
+        System.out.println(sol.increasingTriplet(nums2)); 
+        // false
+
+        int[] nums3 = {2,1,5,0,4,6};
+        System.out.println(sol.increasingTriplet(nums3)); 
+        // true
+    }
+}
