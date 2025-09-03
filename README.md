@@ -512,3 +512,30 @@ public class Main {
         // true
     }
 }
+
+Problem : 
+Move Zeroes (LeetCode 283)
+This repository contains a Java solution for the Move Zeroes problem from LeetCode.
+Problem Statement
+Given an integer array `nums`, move all `0`s to the end of it while maintaining the relative order of the non-zero elements.
+- You must do this in-place without making a copy of the array.
+
+Example 1
+Input: nums = [0,1,0,3,12]  
+Output: [1,3,12,0,0]  
+
+Example 2
+Input: nums = [0]  
+Output: [0]  
+
+Files
+- `Solution.java` → Contains the solution (`moveZeroes` method).
+- `Main.java` → Test class to run and validate the solution.
+
+How to Run
+javac Main.java Solution.java
+Result: 1 3 12 0 0
+Result: 0
+Complexity
+Time Complexity: O(n) → single pass to rearrange, single pass to insert zeros.
+Space Complexity: O(1) → in-place.
