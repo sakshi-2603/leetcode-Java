@@ -539,3 +539,96 @@ Result: 0
 Complexity
 Time Complexity: O(n) → single pass to rearrange, single pass to insert zeros.
 Space Complexity: O(1) → in-place.
+
+
+LeetCode 392. Is Subsequence
+Problem
+Given two strings `s` and `t`, return `true` if `s` is a subsequence of `t`, or `false` otherwise.  
+A subsequence preserves order but does not require consecutive characters.  
+
+Example 1
+Input:  
+`s = "abc"`, `t = "ahbgdc"`  
+Output:  
+`true`
+Example 2
+Input:  
+`s = "axc"`, `t = "ahbgdc"`  
+Output:  
+`false`
+Approach
+- Use two pointers: one for `s` and one for `t`.  
+- Traverse `t`, and whenever characters match, move pointer in `s`.  
+- At the end, if all characters in `s` were matched, return `true`.  
+
+Time Complexity
+- O(|t|) for single query.  
+
+Follow-up Optimization
+- If there are many queries `s1, s2, ..., sk`:
+  - Preprocess `t` into a map of character → index list.  
+  - Use binary search for each character in `s`.  
+  - Each query runs in O(|s| log |t|).  
+
+Java Solution
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        int i = 0, j = 0;
+        while (i < s.length() && j < t.length()) {
+            if (s.charAt(i) == t.charAt(j)) {
+                i++;
+            }
+            j++;
+        }
+        return i == s.length();
+    }
+}
+Follow-up Java Solution (Multiple Queries)
+import java.util.*;
+
+class SubsequenceChecker {
+    private Map<Character, List<Integer>> indexMap;
+
+    // Preprocess t
+    public SubsequenceChecker(String t) {
+        indexMap = new HashMap<>();
+        for (int i = 0; i < t.length(); i++) {
+            char c = t.charAt(i);
+            indexMap.putIfAbsent(c, new ArrayList<>());
+            indexMap.get(c).add(i);
+        }
+    }
+
+    // Check if s is subsequence of t
+    public boolean isSubsequence(String s) {
+        int prevIndex = -1;
+        for (char c : s.toCharArray()) {
+            if (!indexMap.containsKey(c)) return false;
+
+            List<Integer> positions = indexMap.get(c);
+            int nextIndex = upperBound(positions, prevIndex);
+            if (nextIndex == -1) return false;
+
+            prevIndex = nextIndex;
+        }
+        return true;
+    }
+
+    // Binary search helper
+    private int upperBound(List<Integer> list, int prevIndex) {
+        int left = 0, right = list.size() - 1, ans = -1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (list.get(mid) > prevIndex) {
+                ans = list.get(mid);
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return ans;
+    }
+}
+This repository contains:
+392-Is-Subsequence.java → Java solution
+README.md → Problem explanation, approach, and solutions
