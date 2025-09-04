@@ -632,3 +632,53 @@ class SubsequenceChecker {
 This repository contains:
 392-Is-Subsequence.java → Java solution
 README.md → Problem explanation, approach, and solutions
+
+
+LeetCode 11. Container With Most Water
+Problem
+You are given an integer array `height`. Each element represents a vertical line on the x-axis.  
+Find two lines that, together with the x-axis, form a container that holds the maximum water.  
+
+Example 1
+Input:  
+`height = [1,8,6,2,5,4,8,3,7]`  
+Output:  
+`49`  
+
+Example 2
+Input:  
+`height = [1,1]`  
+Output:  
+`1`  
+Approach
+- Use two pointers starting at both ends of the array.  
+- Compute area = `(right - left) * min(height[left], height[right])`.  
+- Keep track of `maxArea`.  
+- Move the pointer pointing to the shorter line, since moving the taller one won’t increase the area.  
+- Continue until `left < right`.  
+
+Complexity
+- Time: O(n)  
+- Space: O(1)  
+Java Solution
+class Solution {
+    public int maxArea(int[] height) {
+        int left = 0, right = height.length - 1;
+        int maxArea = 0;
+
+        while (left < right) {
+            int width = right - left;
+            int h = Math.min(height[left], height[right]);
+            int area = width * h;
+            maxArea = Math.max(maxArea, area);
+
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+
+        return maxArea;
+    }
+}
