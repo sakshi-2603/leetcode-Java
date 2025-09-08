@@ -682,3 +682,49 @@ class Solution {
         return maxArea;
     }
 }
+
+
+Problem : Maximum Average Subarray – Sliding Window Approach (Java)
+
+Problem Statement
+Given an array of integers `nums` and an integer `k`, find the contiguous subarray of length `k` that has the maximum average value and return it. The result should be accurate up to 10⁻⁵.
+Example
+Input: 
+nums = [1, 12, -5, -6, 50, 3], k = 4  
+Output: 12.75  
+Explanation:The subarray [12, -5, -6, 50] has the maximum sum 51, so the average is 12.75.
+
+Input:  
+nums = [5],k = 1  
+Output: 5.0
+Approach
+This problem is solved using the Sliding Window technique:
+
+1. First, calculate the sum of the first `k` elements.
+2. Slide the window across the array by removing the first element and adding the next element in line.
+3. Keep track of the maximum sum while traversing the array.
+4. Return the maximum sum divided by `k` as the result.
+
+This ensures an efficient solution in O(n) time and O(1) space.
+
+Code Implementation
+class Solution {
+    public double findMaxAverage(int[] nums, int k) {
+        int windowSum = 0;
+        for (int i = 0; i < k; i++) {
+            windowSum += nums[i];
+        }
+        
+        int maxSum = windowSum;
+        
+        for (int i = k; i < nums.length; i++) {
+            windowSum = windowSum - nums[i - k] + nums[i];
+            maxSum = Math.max(maxSum, windowSum);
+        }
+        
+        return (double) maxSum / k;
+    }
+}
+Time and Space Complexity
+Time Complexity: O(n), where n is the length of the array.
+Space Complexity: O(1), using only a few variables.
