@@ -728,3 +728,49 @@ class Solution {
 Time and Space Complexity
 Time Complexity: O(n), where n is the length of the array.
 Space Complexity: O(1), using only a few variables.
+
+
+Problem : 
+1679. Max Number of K-Sum Pairs
+
+Problem Description
+You are given an integer array `nums` and an integer `k`. In one operation, you can pick two numbers from the array whose sum equals `k` and remove them from the array.
+Return the maximum number of operations you can perform on the array.
+
+Example 1
+Input:  
+`nums = [1, 2, 3, 4], k = 5`  
+Output:  
+`2`
+
+Explanation:  
+- Remove 1 and 4 → nums becomes [2,3]  
+- Remove 2 and 3 → nums becomes []  
+Total 2 operations.
+
+Example 2
+Input:  
+`nums = [3, 1, 3, 4, 3], k = 6`  
+Output:  
+`1`
+
+Explanation:  
+- Remove two 3's → nums becomes [1,4,3]  
+Only 1 operation possible.
+
+Approach
+We use a **HashMap** to count occurrences of each number and check if its complement exists while iterating through the array.
+
+Steps:
+1. For each number in `nums`, calculate `complement = k - num`.
+2. If `complement` exists in the map with frequency > 0, form a pair and reduce its count.
+3. If not, increase the count of `num` in the map.
+4. Return the total number of operations.
+
+Time Complexity
+- O(n), where n is the length of the input array.
+Space Complexity
+- O(n), for the HashMap storing counts.
+Code Implementation
+See the file [`Solution.java`](./Solution.java) for the complete implementation.
+
