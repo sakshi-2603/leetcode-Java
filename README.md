@@ -774,3 +774,24 @@ Space Complexity
 Code Implementation
 See the file [`Solution.java`](./Solution.java) for the complete implementation.
 
+
+Problem :
+Solution Explanation
+This problem is best solved using the Sliding Window technique.
+
+Approach:
+1. Use a window of size `k` and slide it across the string.
+2. Keep counting the vowels in the current window.
+3. As the window moves, add the new character if it's a vowel and remove the leftmost one if it's a vowel.
+4. Keep track of the maximum count encountered.
+
+Why Sliding Window?
+- We only need to examine substrings of size `k`.
+- Instead of checking each substring separately (which is inefficient), we efficiently update the count as we move the window.
+
+Time Complexity:
+- O(n), where n is the length of the string.
+
+Space Complexity:
+- O(1), since we only store a few variables and a fixed set of vowels.
+This solution is efficient and widely applicable in problems requiring checks over contiguous segments of a string or array.
